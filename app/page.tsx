@@ -300,7 +300,7 @@ A source host (${last.source}) generated repeated reconnaissance activity agains
               <span className="font-semibold">Portfolio Signal</span>
             </div>
 
-            <div className="text-6xl font-bold">5</div>
+            <div className="text-6xl font-bold">6</div>
             <p className="mt-2 text-slate-400">interactive cybersecurity project demos</p>
 
             <div className="mt-6 grid gap-3">
