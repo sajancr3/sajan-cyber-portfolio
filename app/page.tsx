@@ -40,6 +40,7 @@ const projectTabs = [
   "Debian Audit",
   "NVMe Simulator",
   "Quantum Crypto",
+  "JML IAM",
 ] as const;
 
 
@@ -80,6 +81,12 @@ const recruiterInsights: Record<ProjectTab, {
     problem: "Long-term security planning requires understanding how quantum threats affect classical cryptography.",
     skills: "Post-quantum cryptography, RSA/ECC comparison, Kyber/Dilithium research, benchmarking mindset.",
     talkingPoint: "My thesis work connects cryptographic research with practical secure-system implementation planning."
+  },
+  "JML IAM": {
+    roleFit: "IAM Analyst / Access Control / GRC / Identity Governance",
+    problem: "Organizations need accurate access reviews to detect excessive access, missing access, and leaver accounts that were not removed.",
+    skills: "Joiner-Mover-Leaver lifecycle, RBAC, entitlement review, access validation, audit evidence, compliance documentation.",
+    talkingPoint: "I built a JML access review simulation that compares expected role-based access with actual system export data and generates audit-ready findings."
   }
 };
 
@@ -242,7 +249,7 @@ A source host (${last.source}) generated repeated reconnaissance activity agains
             <Shield className="h-8 w-8 text-cyan-400" />
             <div>
               <h1 className="text-xl font-bold">Sajan Cybersecurity Portfolio</h1>
-              <p className="text-sm text-slate-400">SOC Analyst • Incident Response • Detection Engineering</p>
+              <p className="text-sm text-slate-400">Cybersecurity Engineer • SOC Detection • IAM Access Control • Cryptography Systems</p>
             </div>
           </div>
 
@@ -254,7 +261,7 @@ A source host (${last.source}) generated repeated reconnaissance activity agains
               Recruiter Mode: {recruiterMode ? "ON" : "OFF"}
             </button>
 
-            <a href="https://github.com/sajancr3" className="flex items-center gap-1 hover:text-cyan-400">
+            <a href="https://jml-hybrid-o660.onrender.com/dashboard" className="flex items-center gap-1 hover:text-cyan-400">
               <Code2 size={16} /> GitHub
             </a>
             <a href="https://www.linkedin.com/in/sajanchakkumkattuparambilraju" className="flex items-center gap-1 hover:text-cyan-400">
@@ -387,6 +394,8 @@ A source host (${last.source}) generated repeated reconnaissance activity agains
         {activeProject === "NVMe Simulator" && <NvmeDemo />}
 
         {activeProject === "Quantum Crypto" && <QuantumCryptoDemo />}
+
+        {activeProject === "JML IAM" && <JMLDemo />}
 
         <section className="mt-12 rounded-3xl border border-slate-800 bg-slate-900 p-6">
           <div className="mb-3 flex items-center gap-2 text-cyan-400">
@@ -837,7 +846,7 @@ This project designs and evaluates a quantum-resistant cryptography computer sys
         icon={<KeyRound />}
         title="Quantum-Resistant Cryptography Computer System"
         subtitle="Interactive post-quantum migration lab based on my master's thesis: RSA/ECC vs Kyber/Dilithium, hybrid design, threat modeling, and benchmark planning."
-        link="https://github.com/sajancr3"
+        link="https://jml-hybrid-o660.onrender.com/dashboard"
       />
 
       <ProjectStory
@@ -1094,5 +1103,203 @@ function StoryBlock({ title, text }: { title: string; text: string }) {
       <p className="text-sm font-bold text-cyan-300">{title}</p>
       <p className="mt-2 text-sm text-slate-300">{text}</p>
     </div>
+  );
+}
+
+function JMLDemo() {
+  const [selectedUser, setSelectedUser] = useState(0);
+
+  const users = [
+    {
+      name: "John Kowalski",
+      role: "Finance Analyst",
+      status: "Mover",
+      systemAccess: ["SAP", "Email", "Finance_DB"],
+      expectedAccess: ["SAP", "Email"],
+    },
+    {
+      name: "Anna Nowak",
+      role: "HR Manager",
+      status: "Joiner",
+      systemAccess: ["HR_System", "Email", "Payroll"],
+      expectedAccess: ["HR_System", "Email", "Payroll"],
+    },
+    {
+      name: "Mike Smith",
+      role: "Former Employee",
+      status: "Leaver",
+      systemAccess: ["VPN", "Email"],
+      expectedAccess: [],
+    },
+  ];
+
+  const user = users[selectedUser];
+
+  const unauthorizedAccess = user.systemAccess.filter(
+    (access) => !user.expectedAccess.includes(access)
+  );
+
+  const missingAccess = user.expectedAccess.filter(
+    (access) => !user.systemAccess.includes(access)
+  );
+
+  const exportAuditReport = () => {
+    const report = `JML IAM ACCESS REVIEW REPORT
+================================
+
+User: ${user.name}
+Role: ${user.role}
+Lifecycle Status: ${user.status}
+
+System Export Data:
+${user.systemAccess.length ? user.systemAccess.map((a) => "- " + a).join("\n") : "- No active access"}
+
+Role-Based Expected Access:
+${user.expectedAccess.length ? user.expectedAccess.map((a) => "- " + a).join("\n") : "- No access expected"}
+
+Unauthorized Entitlements:
+${unauthorizedAccess.length ? unauthorizedAccess.map((a) => "- " + a).join("\n") : "- None"}
+
+Missing Entitlements:
+${missingAccess.length ? missingAccess.map((a) => "- " + a).join("\n") : "- None"}
+
+Audit Decision:
+Access review compared system export data against role-based expected access.
+
+Recommended Action:
+Update access according to RBAC policy, document remediation, and retain this evidence for IAM audit review.
+
+Generated by:
+Sajan Cybersecurity Portfolio - JML IAM Access Review Lab
+`;
+
+    const blob = new Blob([report], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${user.name.replaceAll(" ", "_")}_JML_Audit_Report.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <>
+      <ProjectHero
+        icon={<Shield />}
+        title="JML IAM Access Review & Audit Lab"
+        subtitle="Identity lifecycle simulation (Joiner-Mover-Leaver) demonstrating access validation, entitlement review, RBAC comparison, and audit evidence generation aligned with enterprise IAM workflows."
+        link="https://jml-hybrid-o660.onrender.com/dashboard"
+      />
+
+      <ProjectStory
+        happened="User access rights changed when employees joined, moved roles, or left the organization."
+        detected="The review compared actual system export data against expected role-based access."
+        matters="Incorrect access can create excessive privileges, audit findings, and compliance risk."
+        did="I built an IAM workflow that identifies unauthorized entitlements, missing entitlements, and audit-ready remediation notes."
+      />
+
+      <section className="grid gap-6 lg:grid-cols-3">
+        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+          <h3 className="mb-4 text-xl font-bold">Identity Records</h3>
+
+          <div className="space-y-3">
+            {users.map((u, i) => (
+              <button
+                key={u.name}
+                onClick={() => setSelectedUser(i)}
+                className={`w-full rounded-2xl border p-4 text-left transition ${
+                  selectedUser === i
+                    ? "border-cyan-400 bg-cyan-500 text-slate-950"
+                    : "border-slate-800 bg-slate-950 text-slate-300 hover:border-cyan-400"
+                }`}
+              >
+                <p className="font-bold">{u.name}</p>
+                <p className="text-sm">{u.role}</p>
+                <p className="mt-1 text-xs">Lifecycle: {u.status}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6 lg:col-span-2">
+          <h3 className="text-2xl font-bold">{user.name}</h3>
+          <p className="mt-1 text-sm text-slate-400">
+            Role: {user.role} · Lifecycle Status: {user.status}
+          </p>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+              <h4 className="font-bold text-cyan-300">System Export Data</h4>
+              <div className="mt-3 space-y-2">
+                {user.systemAccess.length ? (
+                  user.systemAccess.map((access) => (
+                    <p key={access} className="text-sm text-slate-300">• {access}</p>
+                  ))
+                ) : (
+                  <p className="text-sm text-slate-500">No active access</p>
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+              <h4 className="font-bold text-cyan-300">Role-Based Expected Access</h4>
+              <div className="mt-3 space-y-2">
+                {user.expectedAccess.length ? (
+                  user.expectedAccess.map((access) => (
+                    <p key={access} className="text-sm text-slate-300">• {access}</p>
+                  ))
+                ) : (
+                  <p className="text-sm text-slate-500">No access expected</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl border border-red-900/60 bg-red-950/30 p-5">
+              <h4 className="font-bold text-red-300">Unauthorized Entitlements</h4>
+              <div className="mt-3 space-y-2">
+                {unauthorizedAccess.length ? (
+                  unauthorizedAccess.map((access) => (
+                    <p key={access} className="text-sm text-red-200">• {access}</p>
+                  ))
+                ) : (
+                  <p className="text-sm text-green-300">No unauthorized entitlements found</p>
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-yellow-900/60 bg-yellow-950/20 p-5">
+              <h4 className="font-bold text-yellow-300">Missing Entitlements</h4>
+              <div className="mt-3 space-y-2">
+                {missingAccess.length ? (
+                  missingAccess.map((access) => (
+                    <p key={access} className="text-sm text-yellow-200">• {access}</p>
+                  ))
+                ) : (
+                  <p className="text-sm text-green-300">No missing entitlements found</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-950 p-5">
+            <h4 className="font-bold text-cyan-300">Audit Evidence Note</h4>
+            <p className="mt-3 text-sm leading-relaxed text-slate-300">
+              User {user.name} is classified as {user.status}. Access review compared system export data against role-based expected access. The review identified {unauthorizedAccess.length} unauthorized entitlements and {missingAccess.length} missing entitlements. Recommended action: update access according to RBAC policy, document remediation, and retain evidence for IAM audit review.
+            </p>
+
+            <button
+              onClick={exportAuditReport}
+              className="mt-4 rounded-xl bg-cyan-500 px-4 py-2 font-semibold text-slate-950 hover:bg-cyan-400"
+            >
+              Export Audit Report (Simulated)
+            </button>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
