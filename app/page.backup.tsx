@@ -42,47 +42,7 @@ const projectTabs = [
   "Quantum Crypto",
 ] as const;
 
-
 type ProjectTab = (typeof projectTabs)[number];
-
-const recruiterInsights: Record<ProjectTab, {
-  roleFit: string;
-  problem: string;
-  skills: string;
-  talkingPoint: string;
-}> = {
-  "SentinelForge": {
-    roleFit: "SOC Analyst / Incident Response / Detection Engineering",
-    problem: "Security teams need clear prioritization when raw IDS alerts become noisy or repetitive.",
-    skills: "Suricata, EVE JSON parsing, MITRE ATT&CK mapping, cumulative risk scoring, dashboarding, response logic.",
-    talkingPoint: "I built an end-to-end detection pipeline that turns raw network alerts into analyst-ready decisions."
-  },
-  "IP Routing Lab": {
-    roleFit: "Network Security / Security Engineering / Infrastructure Security",
-    problem: "Security analysts need to understand why traffic is allowed, dropped, routed, or segmented.",
-    skills: "Linux namespaces, iptables, routing, packet flow analysis, firewall policy testing.",
-    talkingPoint: "I can reason through packet paths and explain why traffic is allowed or blocked at each stage."
-  },
-  "Debian Audit": {
-    roleFit: "SOC Analyst / Linux Security / Vulnerability Management",
-    problem: "Poor Linux configuration weakens incident readiness and increases attack surface.",
-    skills: "Linux hardening, SSH review, firewall checks, permission analysis, update posture, remediation writing.",
-    talkingPoint: "I created audit-style checks that connect host configuration to real security risk."
-  },
-  "NVMe Simulator": {
-    roleFit: "Systems Security / Security Engineering / Low-Level Debugging",
-    problem: "Security engineers benefit from understanding how low-level systems process commands, queues, and failures.",
-    skills: "C/C++ systems thinking, queues, shared-memory concepts, fault-injection reasoning, debugging flow.",
-    talkingPoint: "This project shows that I can understand software below the application layer, not only dashboards."
-  },
-  "Quantum Crypto": {
-    roleFit: "Security Research / Cryptography / Secure Systems",
-    problem: "Long-term security planning requires understanding how quantum threats affect classical cryptography.",
-    skills: "Post-quantum cryptography, RSA/ECC comparison, Kyber/Dilithium research, benchmarking mindset.",
-    talkingPoint: "My thesis work connects cryptographic research with practical secure-system implementation planning."
-  }
-};
-
 
 const socAlerts = [
   {
@@ -177,7 +137,6 @@ const cryptoComparison = [
 
 export default function Home() {
   const [activeProject, setActiveProject] = useState<ProjectTab>("SentinelForge");
-  const [recruiterMode, setRecruiterMode] = useState(true);
   const [alerts, setAlerts] = useState<typeof socAlerts>([]);
   const [running, setRunning] = useState(false);
   const [selectedAlert, setSelectedAlert] = useState<(typeof socAlerts)[0] | null>(null);
@@ -247,13 +206,6 @@ A source host (${last.source}) generated repeated reconnaissance activity agains
           </div>
 
           <div className="flex flex-wrap gap-4 text-sm text-slate-300">
-            <button
-              onClick={() => setRecruiterMode(!recruiterMode)}
-              className="rounded-xl border border-cyan-400 px-3 py-1 text-cyan-300 hover:bg-cyan-400 hover:text-slate-950"
-            >
-              Recruiter Mode: {recruiterMode ? "ON" : "OFF"}
-            </button>
-
             <a href="https://github.com/sajancr3" className="flex items-center gap-1 hover:text-cyan-400">
               <Code2 size={16} /> GitHub
             </a>
@@ -281,10 +233,6 @@ A source host (${last.source}) generated repeated reconnaissance activity agains
               SOC incident replay, firewall policy decisions, Linux audit checks, storage queue flow,
               and post-quantum crypto comparison.
             </p>
-
-            <div className="mt-5 rounded-2xl border border-slate-800 bg-slate-900 p-4 text-sm text-slate-300">
-              <strong className="text-cyan-300">Professional Profile:</strong> Final-semester master's student in Poland focused on SOC operations, incident response, detection engineering, and secure systems. Work eligibility documentation can be provided during HR verification.
-            </div>
           </div>
 
           <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
@@ -320,43 +268,6 @@ A source host (${last.source}) generated repeated reconnaissance activity agains
             </button>
           ))}
         </section>
-
-        {recruiterMode && (
-          <section className="mb-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
-            <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">
-                  Recruiter Mode
-                </p>
-                <h3 className="mt-2 text-2xl font-bold">
-                  Why {activeProject} matters professionally
-                </h3>
-              </div>
-              <p className="max-w-xl text-sm text-slate-400">
-                This view translates the technical project into role fit, business problem, skills proven, and interview talking point.
-              </p>
-            </div>
-
-            <div className="grid gap-5 md:grid-cols-4">
-              <RecruiterCard
-                title="Role Fit"
-                text={recruiterInsights[activeProject].roleFit}
-              />
-              <RecruiterCard
-                title="Problem Solved"
-                text={recruiterInsights[activeProject].problem}
-              />
-              <RecruiterCard
-                title="Skills Proven"
-                text={recruiterInsights[activeProject].skills}
-              />
-              <RecruiterCard
-                title="Interview Talking Point"
-                text={recruiterInsights[activeProject].talkingPoint}
-              />
-            </div>
-          </section>
-        )}
 
         {activeProject === "SentinelForge" && (
           <SentinelForgeDemo
@@ -440,13 +351,6 @@ function SentinelForgeDemo({
         title="SentinelForge SOC Platform"
         subtitle="Real-time SOC detection pipeline with Suricata, Python, risk scoring, MITRE mapping, dashboards, and safe response logic."
         link="https://github.com/sajancr3/sentinelforge-soc-platform"
-      />
-
-      <ProjectStory
-        happened="An attacker VM generated reconnaissance activity against a monitored Debian SOC lab."
-        detected="Suricata alerts were parsed by a Python detection engine and escalated with cumulative risk scoring."
-        matters="This shows alert correlation, MITRE mapping, response decisions, and analyst-style investigation logic."
-        did="I built the pipeline, dashboards, risk engine, safe response logic, and GitHub documentation."
       />
 
       <section className="grid gap-5 md:grid-cols-4">
@@ -601,13 +505,6 @@ function IpRoutingDemo({
         link="https://github.com/sajancr3/ip-routing-filter-lab"
       />
 
-      <ProjectStory
-        happened="Traffic moved between Linux namespaces through simulated routers and firewall rules."
-        detected="Allowed and denied flows were evaluated using protocol, port, and policy logic."
-        matters="This proves I understand packet flow, segmentation, iptables, and network troubleshooting."
-        did="I built the namespace topology, routing rules, firewall policies, and test scenarios."
-      />
-
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
           <h3 className="mb-5 text-2xl font-bold">Packet Flow Simulator</h3>
@@ -664,13 +561,6 @@ function DebianAuditDemo() {
         link="https://github.com/sajancr3/debian-audit"
       />
 
-      <ProjectStory
-        happened="A Debian system was reviewed for common security posture weaknesses."
-        detected="Controls such as SSH hardening, firewall status, updates, permissions, and logging were checked."
-        matters="This connects Linux administration with incident readiness and host hardening."
-        did="I created audit-style checks, pass/warn outputs, and remediation guidance."
-      />
-
       <section className="grid gap-6 lg:grid-cols-3">
         <MetricCard label="Passed Controls" value={passCount.toString()} />
         <MetricCard label="Warnings" value={warnCount.toString()} />
@@ -708,13 +598,6 @@ function NvmeDemo() {
         link="https://github.com/sajancr3/nvme-storage-stack-simulator"
       />
 
-      <ProjectStory
-        happened="A host submitted simulated storage commands through a queue-based NVMe-like workflow."
-        detected="The demo shows command submission, firmware polling, execution, and completion behavior."
-        matters="This proves systems-level thinking, debugging ability, and understanding of low-level software flow."
-        did="I implemented queue simulation, shared-memory concepts, and fault-injection style reasoning."
-      />
-
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
           <h3 className="mb-5 text-2xl font-bold">Command Queue Flow</h3>
@@ -747,239 +630,42 @@ function NvmeDemo() {
   );
 }
 
-
 function QuantumCryptoDemo() {
-  const [threatModel, setThreatModel] = useState<"classical" | "quantum" | "hybrid">("hybrid");
-  const [selectedAlgo, setSelectedAlgo] = useState("Kyber");
-
-  const threatModels = {
-    classical: {
-      title: "Classical Attacker",
-      risk: "Moderate",
-      summary: "RSA and ECC remain widely used against classical attackers, but migration planning is still needed for long-term systems.",
-    },
-    quantum: {
-      title: "Quantum Attacker",
-      risk: "Critical",
-      summary: "Large-scale quantum computers could threaten RSA and ECC using Shor's algorithm, making post-quantum alternatives necessary.",
-    },
-    hybrid: {
-      title: "Hybrid Migration Risk",
-      risk: "High",
-      summary: "A safe migration strategy combines classical cryptography with post-quantum algorithms during transition periods.",
-    },
-  };
-
-  const algorithms = [
-    {
-      name: "RSA",
-      purpose: "Encryption / Signatures",
-      quantumResistance: "Low",
-      speed: 45,
-      security: 55,
-      useCase: "Legacy systems and certificates",
-      weakness: "Vulnerable to future quantum attacks",
-    },
-    {
-      name: "ECC",
-      purpose: "Key exchange / Signatures",
-      quantumResistance: "Low",
-      speed: 65,
-      security: 60,
-      useCase: "Modern TLS, mobile, constrained systems",
-      weakness: "Also vulnerable to Shor's algorithm",
-    },
-    {
-      name: "Kyber",
-      purpose: "Post-quantum key encapsulation",
-      quantumResistance: "High",
-      speed: 85,
-      security: 90,
-      useCase: "Quantum-resistant key exchange",
-      weakness: "Requires migration and compatibility planning",
-    },
-    {
-      name: "Dilithium",
-      purpose: "Post-quantum digital signatures",
-      quantumResistance: "High",
-      speed: 75,
-      security: 88,
-      useCase: "Quantum-resistant authentication",
-      weakness: "Larger signatures than classical schemes",
-    },
-    {
-      name: "Hybrid TLS",
-      purpose: "Classical + PQC migration design",
-      quantumResistance: "Very High",
-      speed: 70,
-      security: 95,
-      useCase: "Migration-safe secure communication",
-      weakness: "More complex handshake and implementation",
-    },
-  ];
-
-  const selected = algorithms.find((a) => a.name === selectedAlgo) || algorithms[2];
-
-  const benchmarkData = [
-    { operation: "KeyGen", score: selected.speed },
-    { operation: "Encrypt/KEM", score: selected.name === "Dilithium" ? 20 : selected.speed - 5 },
-    { operation: "Sign", score: selected.name === "Kyber" ? 15 : selected.speed },
-    { operation: "Verify/Decap", score: selected.speed - 10 },
-    { operation: "Security", score: selected.security },
-  ];
-
-  const thesisSummary = `Thesis Summary:
-This project designs and evaluates a quantum-resistant cryptography computer system. It compares classical cryptography such as RSA and ECC with post-quantum candidates such as Kyber and Dilithium. The selected threat model is "${threatModels[threatModel].title}", where the assessed risk is ${threatModels[threatModel].risk}. The recommended direction is a hybrid migration model that keeps compatibility with existing systems while introducing post-quantum protection for future security.`;
-
   return (
     <>
       <ProjectHero
         icon={<KeyRound />}
-        title="Quantum-Resistant Cryptography Computer System"
-        subtitle="Interactive post-quantum migration lab based on my master's thesis: RSA/ECC vs Kyber/Dilithium, hybrid design, threat modeling, and benchmark planning."
+        title="Quantum-Resistant Cryptography System"
+        subtitle="A research-focused project comparing classical cryptography against post-quantum approaches like Kyber and Dilithium."
         link="https://github.com/sajancr3"
       />
 
-      <ProjectStory
-        happened="Classical cryptographic systems face long-term risk from future quantum computers."
-        detected="RSA and ECC were compared against post-quantum candidates such as Kyber and Dilithium."
-        matters="This shows secure-system research ability, cryptography understanding, and future-focused security engineering."
-        did="I structured the thesis around threat modeling, benchmarking, hybrid migration, and implementation planning on Linux."
-      />
-
-      <section className="grid gap-6 lg:grid-cols-3">
-        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6 lg:col-span-1">
-          <h3 className="mb-5 text-2xl font-bold">Threat Model Selector</h3>
-
-          <div className="space-y-3">
-            {Object.entries(threatModels).map(([key, model]) => (
-              <button
-                key={key}
-                onClick={() => setThreatModel(key as "classical" | "quantum" | "hybrid")}
-                className={`w-full rounded-2xl border p-4 text-left transition ${
-                  threatModel === key
-                    ? "border-cyan-400 bg-cyan-500 text-slate-950"
-                    : "border-slate-800 bg-slate-950 text-slate-300 hover:border-cyan-400"
-                }`}
-              >
-                <p className="font-bold">{model.title}</p>
-                <p className="text-sm">Risk: {model.risk}</p>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6 lg:col-span-2">
-          <h3 className="mb-3 text-2xl font-bold">{threatModels[threatModel].title}</h3>
-          <p className="text-slate-300">{threatModels[threatModel].summary}</p>
-
-          <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-950 p-5">
-            <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">
-              Recommended Security Direction
-            </p>
-            <p className="mt-3 text-slate-300">
-              Use a hybrid migration approach: keep classical compatibility while introducing PQC-based
-              key exchange and signatures where suitable.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="mt-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
-        <h3 className="mb-5 text-2xl font-bold">Algorithm Comparison</h3>
-
-        <div className="grid gap-4 md:grid-cols-5">
-          {algorithms.map((algo) => (
-            <button
-              key={algo.name}
-              onClick={() => setSelectedAlgo(algo.name)}
-              className={`rounded-2xl border p-4 text-left transition ${
-                selectedAlgo === algo.name
-                  ? "border-cyan-400 bg-slate-800"
-                  : "border-slate-800 bg-slate-950 hover:border-cyan-400"
-              }`}
-            >
-              <p className="font-bold text-cyan-300">{algo.name}</p>
-              <p className="mt-2 text-xs text-slate-400">{algo.purpose}</p>
-              <p className="mt-3 text-sm">Quantum Resistance: {algo.quantumResistance}</p>
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-            <h4 className="text-xl font-bold">{selected.name}</h4>
-            <p className="mt-3 text-sm text-slate-300"><strong>Purpose:</strong> {selected.purpose}</p>
-            <p className="mt-2 text-sm text-slate-300"><strong>Use Case:</strong> {selected.useCase}</p>
-            <p className="mt-2 text-sm text-slate-300"><strong>Weakness:</strong> {selected.weakness}</p>
-          </div>
-
-          <div className="h-72 rounded-2xl border border-slate-800 bg-slate-950 p-5">
+      <section className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+          <h3 className="mb-5 text-2xl font-bold">Crypto Comparison</h3>
+          <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={benchmarkData}>
-                <XAxis dataKey="operation" stroke="#94a3b8" />
+              <BarChart data={cryptoComparison}>
+                <XAxis dataKey="name" stroke="#94a3b8" />
                 <YAxis stroke="#94a3b8" />
                 <Tooltip />
-                <Bar dataKey="score" fill="#22d3ee" />
+                <Bar dataKey="security" fill="#22d3ee" />
+                <Bar dataKey="quantum" fill="#a78bfa" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
-      </section>
-
-      <section className="mt-8 grid gap-6 lg:grid-cols-2">
-        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
-          <h3 className="mb-5 text-2xl font-bold">Proposed System Architecture</h3>
-
-          <div className="space-y-3">
-            <ArchitectureStep number="1" title="Client Request" text="A client initiates a secure communication session." />
-            <ArchitectureStep number="2" title="Hybrid Key Exchange" text="Classical key exchange is combined with PQC KEM such as Kyber." />
-            <ArchitectureStep number="3" title="Signature Verification" text="Authentication can be validated with PQC signatures such as Dilithium." />
-            <ArchitectureStep number="4" title="Encrypted Session" text="A session key is derived and used for protected communication." />
-            <ArchitectureStep number="5" title="Security Report" text="Performance and security results are compared against classical baselines." />
-          </div>
-        </div>
 
         <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
-          <h3 className="mb-5 text-2xl font-bold">Migration Roadmap</h3>
-
+          <h3 className="mb-5 text-2xl font-bold">Research Focus</h3>
           <div className="space-y-4">
-            <InfoBlock title="Phase 1: Classical Baseline" text="Benchmark RSA and ECC to establish current performance and security assumptions." />
-            <InfoBlock title="Phase 2: PQC Benchmark" text="Test Kyber and Dilithium operations including key generation, encapsulation, signing, and verification." />
-            <InfoBlock title="Phase 3: Hybrid Model" text="Combine classical and PQC methods to reduce migration risk." />
-            <InfoBlock title="Phase 4: Evaluation" text="Compare speed, key sizes, signature sizes, compatibility, and security benefits." />
-            <InfoBlock title="Phase 5: Recommendation" text="Define practical deployment guidance for quantum-resistant migration." />
+            <InfoBlock title="Problem" text="RSA and ECC are vulnerable to large-scale quantum attacks using Shor's algorithm." />
+            <InfoBlock title="Approach" text="Compare classical algorithms with quantum-resistant candidates such as Kyber and Dilithium." />
+            <InfoBlock title="Engineering Angle" text="Benchmark key generation, signing, verification, and deployment tradeoffs on Linux." />
           </div>
         </div>
-      </section>
-
-      <section className="mt-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
-        <div className="mb-4 flex items-center gap-2">
-          <FileText className="text-cyan-400" />
-          <h3 className="text-2xl font-bold">Generated Thesis Summary</h3>
-        </div>
-
-        <pre className="whitespace-pre-wrap rounded-2xl border border-slate-800 bg-slate-950 p-5 text-sm text-slate-300">
-          {thesisSummary}
-        </pre>
       </section>
     </>
-  );
-}
-
-function ArchitectureStep({ number, title, text }: { number: string; title: string; text: string }) {
-  return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4">
-      <div className="flex gap-4">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan-500 font-bold text-slate-950">
-          {number}
-        </div>
-        <div>
-          <p className="font-bold text-cyan-300">{title}</p>
-          <p className="mt-1 text-sm text-slate-300">{text}</p>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -1053,46 +739,6 @@ function MiniMetric({ label, value }: { label: string; value: string }) {
     <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4">
       <p className="text-sm text-slate-400">{label}</p>
       <p className="mt-1 font-bold text-cyan-300">{value}</p>
-    </div>
-  );
-}
-
-
-function RecruiterCard({ title, text }: { title: string; text: string }) {
-  return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-      <p className="text-xs font-semibold uppercase tracking-widest text-cyan-400">{title}</p>
-      <p className="mt-3 text-sm leading-relaxed text-slate-300">{text}</p>
-    </div>
-  );
-}
-
-function ProjectStory({
-  happened,
-  detected,
-  matters,
-  did,
-}: {
-  happened: string;
-  detected: string;
-  matters: string;
-  did: string;
-}) {
-  return (
-    <section className="mb-8 grid gap-4 md:grid-cols-4">
-      <StoryBlock title="What Happened" text={happened} />
-      <StoryBlock title="What I Detected" text={detected} />
-      <StoryBlock title="Why It Matters" text={matters} />
-      <StoryBlock title="What I Built" text={did} />
-    </section>
-  );
-}
-
-function StoryBlock({ title, text }: { title: string; text: string }) {
-  return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-      <p className="text-sm font-bold text-cyan-300">{title}</p>
-      <p className="mt-2 text-sm text-slate-300">{text}</p>
     </div>
   );
 }
