@@ -55,7 +55,7 @@ const recruiterInsights: Record<ProjectTab, {
   "SentinelForge": {
     roleFit: "SOC Analyst / Incident Response / Detection Engineering",
     problem: "Security teams need clear prioritization when raw IDS alerts become noisy or repetitive.",
-    skills: "Suricata, EVE JSON parsing, MITRE ATT&CK mapping, cumulative risk scoring, dashboarding, response logic.",
+    skills: "Suricata, EVE JSON parsing, MITRE ATT&CK mapping, cumulative risk scoring, multi-source correlation, incident timeline reconstruction, and downloadable incident reports, dashboarding, response logic.",
     talkingPoint: "I built an end-to-end detection pipeline that turns raw network alerts into analyst-ready decisions."
   },
   "IP Routing Lab": {
@@ -447,13 +447,33 @@ function SentinelForgeDemo({
       <ProjectHero
         icon={<Shield />}
         title="SentinelForge SOC Platform"
-        subtitle="Real-time SOC detection pipeline with Suricata, Python, risk scoring, MITRE mapping, dashboards, and safe response logic."
+        subtitle="Real-time SOC detection pipeline with Suricata, Python, risk scoring, multi-source correlation, incident timeline reconstruction, and downloadable incident reports, MITRE mapping, dashboards, and safe response logic."
         link="https://github.com/sajancr3/sentinelforge-soc-platform"
       />
 
+      <section className="mt-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+        <h3 className="mb-5 text-2xl font-bold">SentinelForge V2 SOC Upgrades</h3>
+        <div className="grid gap-3 md:grid-cols-2">
+          {[
+            "Real-time auth.log failed-login detection",
+            "Suricata EVE JSON IDS alert ingestion",
+            "Multi-source correlation by source IP",
+            "Risk scoring with CRITICAL/HIGH/MEDIUM logic",
+            "MITRE ATT&CK mapping",
+            "Incident timeline reconstruction",
+            "Downloadable incident reports",
+            "Streamlit SOC dashboard with correlated incident view",
+          ].map((feature) => (
+            <div key={feature} className="rounded-2xl border border-slate-800 bg-slate-950 p-4 text-sm text-slate-300">
+              ✅ {feature}
+            </div>
+          ))}
+        </div>
+      </section>
+
       <ProjectStory
         happened="An attacker VM generated reconnaissance activity against a monitored Debian SOC lab."
-        detected="Suricata alerts were parsed by a Python detection engine and escalated with cumulative risk scoring."
+        detected="Suricata IDS telemetry and Linux authentication logs were parsed by a Python detection engine and escalated with cumulative risk scoring, multi-source correlation, incident timeline reconstruction, and downloadable incident reports."
         matters="This shows alert correlation, MITRE mapping, response decisions, and analyst-style investigation logic."
         did="I built the pipeline, dashboards, risk engine, safe response logic, and GitHub documentation."
       />
