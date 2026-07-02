@@ -1,0 +1,156 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/*
+  Color psychology rationale
+  ─────────────────────────────────────────────────────────────────
+  Base navy (#05091c): authority, institutional trust, seriousness.
+  Used by every bank, regulator, Big 4 firm, and financial watchdog.
+  It reads as "I belong in a risk committee room", not "I built a
+  hackathon project at 2am."
+
+  Warm off-white text (#dde4f0): honest, readable, not clinical.
+  Pure white (#fff) feels sterile and confrontational on dark.
+  This has a slight blue cast that ties it to the navy base.
+
+  Accent colors — all muted, all institutional:
+  GRC (#2563eb)  — consultancy blue, the color of a trusted advisor
+  IAM (#0891b2)  — deep teal, technology reliability, calm precision
+  Cyber (#3b5fd8) — steel blue, competence without aggression
+  Writeups (#0d9488) — teal, analytical, investigative
+
+  No red. Red signals danger and threat. You are the person who
+  manages risk, not the risk itself.
+  ─────────────────────────────────────────────────────────────────
+*/
+
+:root {
+  --bg:        #05091c;
+  --surface:   #090f22;
+  --surface2:  #0e1530;
+  --border:    #162040;
+  --border2:   #1e2d55;
+  --text:      #dde4f0;
+  --text2:     #6b7fa8;
+  --text3:     #2e3d61;
+  --grc:       #2563eb;
+  --grc-dim:   rgba(37,99,235,0.08);
+  --grc-border:rgba(37,99,235,0.22);
+  --iam:       #0891b2;
+  --iam-dim:   rgba(8,145,178,0.08);
+  --iam-border:rgba(8,145,178,0.22);
+  --cyber:     #3b5fd8;
+  --cyber-dim: rgba(59,95,216,0.08);
+  --cyber-border:rgba(59,95,216,0.22);
+  --write:     #0d9488;
+  --write-dim: rgba(13,148,136,0.08);
+  --write-border:rgba(13,148,136,0.22);
+  --radius:    6px;
+  --mono:      'JetBrains Mono', 'Fira Code', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ── Holographic animations ──────────────────────────────────── */
+
+@keyframes neonPulseBlue {
+  0%, 100% { box-shadow: 0 0 6px rgba(37,99,235,0.28), 0 0 20px rgba(37,99,235,0.10), inset 0 0 10px rgba(37,99,235,0.04); }
+  50%       { box-shadow: 0 0 16px rgba(37,99,235,0.55), 0 0 40px rgba(37,99,235,0.20), inset 0 0 16px rgba(37,99,235,0.08); }
+}
+@keyframes neonPulseTeal {
+  0%, 100% { box-shadow: 0 0 6px rgba(8,145,178,0.28), 0 0 20px rgba(8,145,178,0.10); }
+  50%       { box-shadow: 0 0 16px rgba(8,145,178,0.55), 0 0 40px rgba(8,145,178,0.20); }
+}
+@keyframes neonPulseCyber {
+  0%, 100% { box-shadow: 0 0 6px rgba(59,95,216,0.28), 0 0 20px rgba(59,95,216,0.10); }
+  50%       { box-shadow: 0 0 16px rgba(59,95,216,0.55), 0 0 40px rgba(59,95,216,0.20); }
+}
+
+@keyframes holoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-7px); }
+}
+
+@keyframes termBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes scanSweep {
+  0%   { top: -2px; opacity: 0; }
+  8%   { opacity: 0.7; }
+  92%  { opacity: 0.15; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes shimmerSweep {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes barGrow {
+  from { width: 0%; }
+}
+
+/* ── Holographic utility classes ─────────────────────────────── */
+
+.holo-grc:hover  {
+  animation: neonPulseBlue 2.2s ease-in-out infinite !important;
+  border-color: rgba(37,99,235,0.55) !important;
+  transform: translateY(-3px) !important;
+}
+.holo-iam:hover  {
+  animation: neonPulseTeal 2.2s ease-in-out infinite !important;
+  border-color: rgba(8,145,178,0.55) !important;
+  transform: translateY(-3px) !important;
+}
+.holo-cyber:hover {
+  animation: neonPulseCyber 2.2s ease-in-out infinite !important;
+  border-color: rgba(59,95,216,0.55) !important;
+  transform: translateY(-3px) !important;
+}
+.holo-ir:hover {
+  animation: neonPulseTeal 2.2s ease-in-out infinite !important;
+  border-color: rgba(13,148,136,0.55) !important;
+  transform: translateY(-3px) !important;
+}
+
+.terminal-float { animation: holoFloat 4.5s ease-in-out infinite; }
+
+.scan-section { position: relative; overflow: hidden; }
+.scan-section::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: -2px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.6) 30%, rgba(8,145,178,0.5) 50%, rgba(59,95,216,0.6) 70%, transparent 100%);
+  animation: scanSweep 6s linear infinite;
+  pointer-events: none;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #dde4f0 0%, #60a5fa 25%, #22d3ee 50%, #818cf8 75%, #dde4f0 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerSweep 5s linear infinite;
+}
