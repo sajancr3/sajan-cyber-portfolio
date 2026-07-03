@@ -9,10 +9,12 @@ const PROJECTS = [
   {
     title: 'SentinelForge SOC Platform',
     subtitle: 'Flagship — Detection Engineering',
-    description: 'Real-time SOC detection and response platform. Ingests Suricata IDS alerts and Linux auth logs, runs a detection engine mapped to MITRE ATT&CK, scores cumulative risk, deduplicates alerts, and executes automated response decisions including iptables auto-block. Lab-tested against real Nmap recon, SSH brute-force, and Suricata alert events. Flask dashboard with live event feed.',
-    tags: ['Suricata', 'MITRE ATT&CK', 'Python', 'Flask', 'iptables', 'IDS', 'Detection Engineering', 'SOC'],
+    description: 'Full-stack SOC platform: real-time SSH brute-force detection via auth.log, CICIDS2017 dataset replay (6000 events), AbuseIPDB threat intel enrichment, iptables auto-block after 10 failures, thread-safe event bus, attack timeline, and AI analyst scaffold. Lab-tested against live Hydra attacks from Parrot OS. Dockerized with 3-container compose setup.',
+    tags: ['Python', 'Flask', 'Docker', 'MITRE ATT&CK', 'AbuseIPDB', 'iptables', 'CICIDS2017', 'SQLite', 'Detection Engineering', 'SOC'],
     link: 'https://github.com/sajancr3/sentinelforge-soc-platform',
-    thumbnail: 'soc',
+    screenshot: '/screenshots/sentinelforge-dashboard-254-live-iptables-block.png',
+    galleryLink: '/gallery?project=sentinelforge',
+    screenshotCount: 9,
   },
   {
     title: 'ControlProbe — Breach and Attack Simulation',

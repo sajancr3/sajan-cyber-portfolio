@@ -3,6 +3,24 @@ import { useSearchParams } from 'react-router-dom'
 
 const PROJECTS = [
   {
+    id: 'sentinelforge',
+    label: 'SentinelForge SOC Platform',
+    accent: '#EF4444',
+    track: 'Detection Engineering',
+    github: 'https://github.com/sajancr3/sentinelforge-soc-platform',
+    screenshots: [
+      { file: 'sentinelforge-soc-dashboard-overview.png',        title: 'SOC Dashboard — Live',               desc: '60 alerts ingested, avg risk 74, Brute Force dominant tactic. MITRE ATT&CK breakdown chart and automated response log (BLOCK / ALERT / CORRELATE) all live-updating every 5 seconds.' },
+      { file: 'sentinelforge-dashboard-704-alerts-205-live.png', title: '704 Alerts — 205 Live Attacks',       desc: 'Unified alert queue showing CICIDS replay (grey badge) and real-time Parrot OS attacks (red LIVE badge) in a single view. 205 live SSH brute-force events detected from 192.168.64.4.' },
+      { file: 'sentinelforge-dashboard-254-live-iptables-block.png', title: 'iptables Auto-Block Triggered',  desc: '754 total alerts, 254 live attacks. Response log shows iptables BLOCK of 192.168.64.4 after threshold failures — detect-to-block loop closed in real time.' },
+      { file: 'sentinelforge-parrot-hydra-rockyou-attack.png',   title: 'Parrot OS — Hydra SSH Attack',       desc: 'Attacker side: Hydra running rockyou.txt wordlist against 192.168.64.6 SSH — 14.3 million password attempts queued. Every attempt generates a LIVE alert on the Debian SOC dashboard.' },
+      { file: 'sentinelforge-monitor-enrichment-block-sequence.png', title: 'Enrichment + Auto-Block Sequence', desc: 'live_monitor.py startup: AbuseIPDB enrichment enabled, 10-failure threshold set. Shows [ENRICH] query for 192.168.64.4 → 0/100, then [BLOCK] iptables DROP fired automatically.' },
+      { file: 'sentinelforge-iptables-drop-autoblock.png',       title: 'iptables DROP in Terminal',          desc: 'Terminal captures the exact moment: [BLOCK 09:40:52] iptables DROP → 192.168.64.4. Live detection stream continues confirming Hydra attempts still being logged post-block.' },
+      { file: 'sentinelforge-live-detection-terminal.png',       title: 'Live Detection Stream',              desc: 'live_monitor.py flooding with [LIVE] ALERT: SSH Brute Force - Failed Login from 192.168.64.4 — real-time regex parsing of /var/log/auth.log as Hydra hammers the SSH port.' },
+      { file: 'sentinelforge-brute-force-flood-terminal.png',    title: 'HIGH Severity Alert Flood',          desc: '*** HIGH *** SSH Brute Force - Invalid User, Failed Password, Disconnected — all three auth.log patterns firing simultaneously as Hydra runs multi-threaded attack from Parrot OS.' },
+      { file: 'sentinelforge-cicids-streamer-6000-events.png',   title: 'CICIDS2017 Replay Streamer',         desc: 'CICIDS streamer loading 6000 events from labeled attack dataset (SSH-Patator, FTP-Patator, PortScan, DDoS) into SQLite at 0.3s/event — visible behind live dashboard in background.' },
+    ],
+  },
+  {
     id: 'dora',
     label: 'DORA ICT Risk Platform',
     accent: '#2563eb',
