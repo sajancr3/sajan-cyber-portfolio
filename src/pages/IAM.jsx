@@ -8,10 +8,10 @@ const HEX    = '#0891b2'
 const PROJECTS = [
   {
     title: 'TrustShield IAM AI',
-    subtitle: 'Flagship — IAM',
+    subtitle: 'Flagship — IAM Governance + Privileged Access',
     thumbnail: 'trustshield',
-    description: 'AI-powered Identity Governance and Administration platform. Ingests HR/AD/Group CSVs, runs a full IGA pipeline: identity fabric construction, quality scoring, risk scoring, access review engine, decision engine, Ed25519-sealed evidence vault, quantum integrity seal. Ollama local LLM as AI governance advisor for natural language remediation recommendations. Streamlit dashboard.',
-    tags: ['Python', 'Microsoft Entra ID', 'Ollama', 'Ed25519', 'SHA3-512', 'SQLite', 'Docker', 'Streamlit', 'IGA'],
+    description: 'Enterprise-grade Identity Governance and Administration platform with AI-powered decision layer. Full IGA pipeline: identity fabric, quality scoring, risk scoring, access review engine, decision engine, and Ed25519-sealed evidence vault. New in v2: Segregation of Duties (SoD) engine detecting conflicting role pairs (Finance-Admins + Domain-Admins), Just-in-Time Privileged Access Management with auto-revoke (Zero Trust, no standing access), and ISO 27701-aligned PDF governance audit report generator. Streamlit dashboard with SoD and JIT panels. Ollama LLM for natural-language remediation recommendations.',
+    tags: ['Python', 'SoD Engine', 'JIT PAM', 'Zero Trust', 'Ollama', 'Ed25519', 'SHA3-512', 'fpdf2', 'ISO 27701', 'Streamlit', 'Docker', 'SQLite'],
     link: 'https://github.com/sajancr3/trustshield-iam-ai',
   },
   {
@@ -122,8 +122,9 @@ export default function IAM() {
           {[
             { label: 'Identity Lifecycle', items: ['Joiner automation', 'Mover workflows', 'Leaver offboarding', 'Bulk CSV provisioning'] },
             { label: 'Access Governance', items: ['Periodic access reviews', 'Orphan account detection', 'Dormant account flagging', 'Privileged access reviews'] },
+            { label: 'Privileged Access', items: ['SoD conflict detection', 'JIT access grants', 'Auto-revoke on expiry', 'Zero Trust no-standing-access'] },
             { label: 'Integration', items: ['Microsoft Graph API', 'MSAL / OAuth2', 'RBAC group management', 'Power BI dataset export'] },
-            { label: 'Audit & Evidence', items: ['Ed25519 sealed logs', 'SHA3-512 hashing', 'HMAC-SHA3-512', 'Tamper-evident audit trail'] },
+            { label: 'Audit & Evidence', items: ['Ed25519 sealed logs', 'SHA3-512 hashing', 'ISO 27701 PDF reports', 'Tamper-evident audit trail'] },
           ].map(group => (
             <div key={group.label} style={{
               padding: '18px 20px', background: 'var(--surface)',

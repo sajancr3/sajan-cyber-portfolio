@@ -3,6 +3,23 @@ import { useSearchParams } from 'react-router-dom'
 
 const PROJECTS = [
   {
+    id: 'trustshield',
+    label: 'TrustShield IAM AI',
+    accent: '#0891b2',
+    track: 'IAM Governance',
+    github: 'https://github.com/sajancr3/trustshield-iam-ai',
+    screenshots: [
+      { file: 'trustshield-web-dashboard.png',       title: 'IAM Governance Dashboard',        desc: 'Live identity governance console running on Debian VM. Identities sourced from Microsoft Entra ID (onmicrosoft.com), MFA audit flags, dormant account detection, department risk heatmap, and top critical identities table with Draft Email and Identity 360 actions. New in v2: Privileged Access sidebar section with SoD Violations and JIT Access pages.' },
+      { file: 'trustshield-identities.png',          title: 'Identity Explorer',                desc: 'All identities from Microsoft Entra ID with instant filter chips: Critical, High, Terminated, No MFA, Dormant 90d+. Each row links to the Identity 360 slide panel showing full profile, group memberships, risk findings, and manager notification draft. Live search with / shortcut.' },
+      { file: 'trustshield-findings-sailpoint.png',  title: 'SailPoint ISC Findings',           desc: 'Stale entitlement findings aggregated from SailPoint ISC connector. Accounts inactive 95-200 days still holding full access. Severity-tagged finding cards with hover compliance tooltip (DORA, SOX, ISO 27001). One-click Draft Email generates a manager notification pre-filled with identity details and remediation steps.' },
+      { file: 'trustshield-findings-oci.png',        title: 'Oracle Cloud IAM Findings',        desc: 'Oracle Cloud IAM findings: Privilege Accumulation (member of OracleCloudAdministrators + SecurityAdmins), Admin Without MFA (full tenancy admin, critical security gap), Unrotated API Keys (120-day-old keys). Multi-source IGA aggregation across SailPoint, OCI, and native pipeline in a single view.' },
+      { file: 'trustshield-sod-violations.png',      title: 'SoD Violations — v2 New',          desc: 'New in v2: Segregation of Duties engine page. Total Violations, Critical, High, Medium KPI cards with severity filter chips. Each violation card shows the conflicting role pair, rule ID, conflict description, and remediation instruction. Engine detects Finance-Admins + Domain-Admins, HR-Admins + IT-Admins, and 4 other conflict rules.' },
+      { file: 'trustshield-jit-access.png',          title: 'JIT Privileged Access — v2 New',   desc: 'New in v2: Zero Trust Just-in-Time PAM. Total Requests, Active Grants, Pending Review, Expired KPIs with status filter chips (Approved, Pending, Expired, Denied, Revoked). Active grants show remaining time countdown. All grants are time-bound — no standing privileged access. Mirrors CyberArk and BeyondTrust JIT PAM patterns.' },
+      { file: 'trustshield-cli-v2.png',              title: 'TrustShield v2.0 CLI',             desc: 'CLI entrypoint (python3 start.py) on Debian ARM64 VM showing full v2.0 architecture: Identity Governance (Analyze, Explorer, Investigate, Find Problems), Privileged Access (SoD Center, JIT Manager), Reporting & AI (PDF governance report, AI advisor, evidence vault), and dual interface launch (Streamlit + Flask).' },
+      { file: 'trustshield-cli-sod.png',             title: 'SoD Center + v2 Menu',             desc: 'Full v2.0 main menu alongside the SoD Center sub-menu (Run SoD Scan, View All Violations, View Violation Summary). SoD scan traverses every identity, checks against a 6-rule conflict matrix, and populates the sod_violations table read by the web interface in real time.' },
+    ],
+  },
+  {
     id: 'sentinelforge',
     label: 'SentinelForge SOC Platform',
     accent: '#EF4444',
@@ -27,12 +44,12 @@ const PROJECTS = [
     track: 'GRC & Audit',
     github: 'https://github.com/sajancr3/dora-ict-risk-platform',
     screenshots: [
-      { file: 'dora-executive-overview.png',   title: 'Executive Overview',      desc: 'Compliance score heatmap, open incident summary, and KPI strip aligned to DORA Art. 18 ICT risk domains.' },
-      { file: 'dora-risk-matrix.png',           title: 'ICT Risk Matrix',         desc: 'Likelihood/impact scoring with Art. 18 domain classification and inherent vs residual risk delta.' },
-      { file: 'dora-incident-management.png',   title: 'Incident Management',     desc: 'Art. 19 classification logic with 24h initial, 72h intermediate, and 1-month final reporting timelines.' },
-      { file: 'dora-audit-findings.png',        title: 'Audit Findings (IIA 4E)', desc: 'Condition, criteria, cause, effect, and management response tracking per IIA International Standards.' },
-      { file: 'dora-asset-registry.png',        title: 'ICT Asset Registry',      desc: 'Asset criticality scoring, third-party ICT dependency mapping, and TLPT scope identification.' },
-      { file: 'dora-api-swagger.png',           title: 'FastAPI Swagger UI',      desc: '14 REST endpoints for ICT risk management, incident classification, supplier assessment, and reference data.' },
+      { file: 'dora-executive-overview.png',   title: 'Executive Overview',      desc: 'KNF-aligned 3rd Line of Defense dashboard with active incident alert: Payment Gateway Outage affecting 145,000 clients, EUR 250,000 economic impact, Status: INVESTIGATING. Compliance scorecard, open findings summary, and DORA Art. 18 threshold breach indicator.' },
+      { file: 'dora-risk-matrix.png',           title: 'Inherent Risk Matrix',    desc: 'Bubble chart scatter plot mapping ICT assets by likelihood and impact across Critical/High/Medium/Low zones. Assets plotted: Core Banking, Payment Gateway, SIEM, Customer Data Warehouse. Art. 18 domain classification with inherent risk scoring.' },
+      { file: 'dora-incident-management.png',   title: 'Incident Management',     desc: 'DORA Chapter III, Articles 17-23 ICT incident page. 1 Major (Art. 19) incident — KNF report required, 145,000 clients affected. Classification Breakdown bar chart and Article 18 Criteria Triggered (critical services unavailable >=2h, payment transactions disrupted, economic impact >=EUR 100K, clients affected >=100K).' },
+      { file: 'dora-audit-findings.png',        title: 'Audit Findings (IIA 4E)', desc: 'Filterable audit findings board with severity/status chips and DORA chapter selector. Three open findings: Privileged Access Reviews Overdue by 6 Months (Critical, Art. 9(4)(c)), Backup Recovery Procedures Not Tested for Core Banking System (Critical, Art. 12(1)), AWS Contract Missing DORA-Mandated Provisions (High, Art. 30). Each finding expands to full IIA 4E format.' },
+      { file: 'dora-asset-registry.png',        title: 'ICT Asset Registry',      desc: 'Full asset inventory: Core Banking System, Customer Data Warehouse, Payment Gateway, Active Directory, SIEM Platform (Splunk), Employee Portal. Each asset has criticality tier, RTO/RPO targets, and third-party dependency flags. TLPT scope identification aligned to DORA Art. 26.' },
+      { file: 'dora-api-swagger.png',           title: 'FastAPI Swagger UI',      desc: '14 REST endpoints for ICT risk management, incident classification, supplier assessment, and reference data. KNF-aligned FastAPI backend powering the DORA Audit Platform frontend.' },
     ],
   },
   {
