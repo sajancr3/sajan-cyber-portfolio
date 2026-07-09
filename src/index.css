@@ -44,6 +44,9 @@
   --write:     #0d9488;
   --write-dim: rgba(13,148,136,0.08);
   --write-border:rgba(13,148,136,0.22);
+  --network:     #7c5cff;
+  --network-dim: rgba(124,92,255,0.08);
+  --network-border:rgba(124,92,255,0.22);
   --radius:    6px;
   --mono:      'JetBrains Mono', 'Fira Code', monospace;
 }

@@ -5,16 +5,18 @@ import GRC from './pages/GRC.jsx'
 import IAM from './pages/IAM.jsx'
 import HologramBg from './components/HologramBg.jsx'
 import Cyber from './pages/Cyber.jsx'
+import Networking from './pages/Networking.jsx'
 import Writeups from './pages/Writeups.jsx'
 import Gallery from './pages/Gallery.jsx'
 
 const NAV = [
-  { path: '/',         label: 'Home',        accent: null },
-  { path: '/grc',      label: 'GRC & Audit', accent: 'var(--grc)' },
-  { path: '/iam',      label: 'IAM',         accent: 'var(--iam)' },
-  { path: '/cyber',    label: 'Engineering', accent: 'var(--cyber)' },
-  { path: '/writeups', label: 'IR & SOC',    accent: 'var(--write)' },
-  { path: '/gallery',  label: 'Gallery',     accent: '#6366f1' },
+  { path: '/',           label: 'Home',        accent: null },
+  { path: '/grc',        label: 'GRC & Audit', accent: 'var(--grc)' },
+  { path: '/iam',        label: 'IAM',         accent: 'var(--iam)' },
+  { path: '/cyber',      label: 'Engineering', accent: 'var(--cyber)' },
+  { path: '/networking', label: 'Networking',  accent: 'var(--network)' },
+  { path: '/writeups',   label: 'IR & SOC',    accent: 'var(--write)' },
+  { path: '/gallery',    label: 'Gallery',     accent: '#6366f1' },
 ]
 
 export default function App() {
@@ -90,9 +92,10 @@ export default function App() {
           <Route path="/"         element={<Home />} />
           <Route path="/grc"      element={<GRC />} />
           <Route path="/iam"      element={<IAM />} />
-          <Route path="/cyber"    element={<Cyber />} />
-          <Route path="/writeups" element={<Writeups />} />
-          <Route path="/gallery"  element={<Gallery />} />
+          <Route path="/cyber"      element={<Cyber />} />
+          <Route path="/networking" element={<Networking />} />
+          <Route path="/writeups"   element={<Writeups />} />
+          <Route path="/gallery"    element={<Gallery />} />
         </Routes>
       </main>
 

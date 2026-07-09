@@ -61,6 +61,13 @@ const PAGE_THEMES = {
     pool:   ALL_TYPES,
     labels: BADGE_LABELS,
   },
+  '/networking': {
+    pool:   ['wifi','node','server','firewall','circuit','hexagon',
+             'wifi','node','wifi','server','node','circuit'],
+    labels: ['TCP','DNS','HTTP','BGP','OSPF','VLAN','QoS','MTU',
+             'ICMP','IPv6','LAN','WAN','SDN','NAT','ARP','TLS',
+             'iptables', 'tcpdump', 'netem', 'CI/CD'],
+  },
 }
 
 function pickFrom(pool) { return pool[Math.floor(Math.random() * pool.length)] }
