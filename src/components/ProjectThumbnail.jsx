@@ -586,6 +586,42 @@ function JMLDesign({ a }) {
   </>
 }
 
+// ── NetProbe: Protocol Test Automation ────────────────────────────────
+function NetProbeDesign({ a }) {
+  const tests = ['TCP Handshake','TCP Echo','HTTP GET x3','DNS Resolution x3','Regression Smoke']
+  const profiles = ['CLEAN','LIGHT_FADE','CONGESTED_EDGE','SEVERE_OUTAGE']
+  return <>
+    <TX x={20} y={11} fill={a} size={7.5} weight="700" spacing="1.5" op={0.45}>NetProbe · PROTOCOL TEST AUTOMATION</TX>
+    <rect x={20} y={18} width={92} height={20} rx="3" fill={`${a}18`} stroke={a} strokeWidth="0.9"/>
+    <text x={66} y={32} fill={a} fontSize="12" fontWeight="700" textAnchor="middle" fontFamily="'Courier New',monospace" fillOpacity="0.9">9/9 PASS</text>
+    <Badge x={122} y={19} label="Robot Framework" a={a} w={100}/>
+    <Badge x={230} y={19} label="CI" a={a} w={28}/>
+    {tests.map((t,i) => {
+      const y = 50 + i*16
+      return <g key={t}>
+        <circle cx={26} cy={y-3} r="3.5" fill="#22cc66" fillOpacity="0.85"/>
+        <TX x={36} y={y} fill={a} size={7} op={0.6}>{t}</TX>
+        <TX x={200} y={y} fill="#22cc66" size={7} weight="700" op={0.75}>PASS</TX>
+      </g>
+    })}
+    <TX x={330} y={44} fill={a} size={7} weight="700" op={0.5} spacing="1">tc netem FAULT PROFILES</TX>
+    {profiles.map((p,i) => {
+      const y = 54 + i*22
+      const clr = i===0 ? '#22cc66' : i===3 ? '#ff2244' : '#ffaa00'
+      return <g key={p}>
+        <rect x={330} y={y} width={220} height={16} rx="2" fill={`${clr}12`} stroke={clr} strokeWidth="0.7" strokeOpacity="0.7"/>
+        <TX x={338} y={y+11} fill={clr} size={6.5} weight="700" op={0.85}>{p}</TX>
+      </g>
+    })}
+    <NL x1={20} y1={134} x2={580} y2={134} a={a} w={0.4} op={0.2}/>
+    <TX x={20} y={148} fill={a} size={7} weight="700" op={0.55}>AUTO FAULT-TRIAGE</TX>
+    <TX x={20} y={160} fill={a} size={6.5} op={0.4}>logs + traces + classified root-cause bundled on failure</TX>
+    <Badge x={440} y={142} label="Docker Lab" a={a} w={60}/>
+    <Badge x={508} y={142} label="3-Node" a={a} w={50}/>
+    <TX x={20} y={172} fill={a} size={6.5} op={0.3}>Python · Robot Framework · Linux tc netem · Docker Compose · GitHub Actions</TX>
+  </>
+}
+
 // ── master component ──────────────────────────────────────────────────
 const DESIGNS = {
   soc:         SOCDesign,
@@ -601,6 +637,7 @@ const DESIGNS = {
   entra:       EntraDesign,
   'iam-risk':  IAMRiskDesign,
   jml:         JMLDesign,
+  netprobe:    NetProbeDesign,
 }
 
 export default memo(function ProjectThumbnail({ type = 'soc', accent = '#3b5fd8', height = 180 }) {

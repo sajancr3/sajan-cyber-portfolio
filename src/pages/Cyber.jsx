@@ -37,6 +37,14 @@ const PROJECTS = [
     screenshotCount: 4,
   },
   {
+    title: 'NetProbe — Protocol Test Automation & Fault Triage',
+    subtitle: 'Test Automation Engineering',
+    description: 'Robot Framework and Python test automation framework covering TCP, HTTP, and DNS protocol correctness, wired into a GitHub Actions regression suite verified at 9 of 9 tests passing. Fault-injection module wraps Linux tc netem with named degraded-link profiles (light fade, congested edge, severe outage), and an automated triage step bundles logs, traces, and a classified root-cause hypothesis on every failure. Includes a routed 3-container Docker lab (client, router, server).',
+    tags: ['Python', 'Robot Framework', 'Linux tc netem', 'Docker Compose', 'GitHub Actions', 'Test Automation', 'Fault Injection'],
+    link: 'https://github.com/sajancr3/netprobe',
+    thumbnail: 'netprobe',
+  },
+  {
     title: 'IP Routing and Policy Enforcement Lab',
     subtitle: 'Network Engineering',
     description: 'API-driven network policy enforcement system built on Linux networking primitives. Spring Boot REST API controls iptables firewall rules inside Linux network namespaces in real time. Supports single and multi-hop (2-router) topologies, ICMP and TCP filtering, and logs every policy action to MySQL for traceability. Validated with tcpdump packet capture.',
