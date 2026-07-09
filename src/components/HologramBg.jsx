@@ -66,7 +66,8 @@ const PAGE_THEMES = {
              'wifi','node','wifi','server','node','circuit'],
     labels: ['TCP','DNS','HTTP','BGP','OSPF','VLAN','QoS','MTU',
              'ICMP','IPv6','LAN','WAN','SDN','NAT','ARP','TLS',
-             'iptables', 'tcpdump', 'netem', 'CI/CD'],
+             'iptables', 'tcpdump', 'netem', 'CI/CD',
+             'SCTP','GTP-U','TEID','3GPP','RFC4960','UPF','eNB'],
   },
 }
 

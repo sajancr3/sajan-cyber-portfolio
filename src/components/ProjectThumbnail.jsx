@@ -622,6 +622,89 @@ function NetProbeDesign({ a }) {
   </>
 }
 
+// ── TeleSignal: SCTP Multi-Stream Signaling ───────────────────────────
+function SctpDesign({ a }) {
+  const streams = [0, 1, 2, 3]
+  const phases  = ['INIT', 'INIT-ACK', 'COOKIE-ECHO', 'COOKIE-ACK']
+  return <>
+    <TX x={20} y={11} fill={a} size={7.5} weight="700" spacing="1.5" op={0.45}>telesignal-sctp · RFC 4960</TX>
+    <rect x={20} y={18} width={98} height={20} rx="3" fill={`${a}18`} stroke={a} strokeWidth="0.9"/>
+    <text x={69} y={32} fill={a} fontSize="12" fontWeight="700" textAnchor="middle" fontFamily="'Courier New',monospace" fillOpacity="0.9">10/10 PASS</text>
+    <Badge x={128} y={19} label="Robot Framework" a={a} w={100}/>
+    <Badge x={236} y={19} label="Kernel SCTP" a={a} w={66}/>
+    {/* Four-way handshake */}
+    <TX x={20} y={52} fill={a} size={6.5} weight="700" op={0.5} spacing="1">ASSOCIATION HANDSHAKE</TX>
+    {phases.map((p, i) => {
+      const x = 20 + i * 88
+      return <g key={p}>
+        <rect x={x} y={58} width={78} height={16} rx="2" fill={`${a}14`} stroke={a} strokeWidth="0.6" strokeOpacity="0.6"/>
+        <TX x={x + 39} y={69} fill={a} anchor="middle" size={6} weight="700" op={0.8}>{p}</TX>
+        {i < 3 && <polygon points={`${x+78},63 ${x+84},66 ${x+78},69`} fill={a} fillOpacity="0.6"/>}
+      </g>
+    })}
+    {/* Multi-stream fan-out */}
+    <TX x={20} y={96} fill={a} size={6.5} weight="700" op={0.5} spacing="1">NEGOTIATED OUTBOUND STREAMS</TX>
+    <NC cx={40} cy={122} r={10} a={a} w={1} op={0.85}/>
+    <TX x={40} y={125} fill={a} anchor="middle" size={7} weight="700" op={0.85}>A</TX>
+    {streams.map((s, i) => {
+      const y = 105 + i * 12
+      return <g key={s}>
+        <NL x1={50} y1={122} x2={130} y2={y} a={a} w={0.7} op={0.4}/>
+        <rect x={132} y={y - 7} width={70} height={14} rx="2" fill={`${a}14`} stroke={a} strokeWidth="0.6" strokeOpacity="0.6"/>
+        <TX x={167} y={y + 3} fill={a} anchor="middle" size={6} weight="700" op={0.8}>STREAM {s}</TX>
+        <circle cx={210} cy={y} r="3" fill="#22cc66" fillOpacity="0.85"/>
+      </g>
+    })}
+    <Badge x={420} y={100} label="sctp_sndrcvinfo" a={a} w={92}/>
+    <Badge x={420} y={120} label="Heartbeat" a={a} w={62}/>
+    <Badge x={420} y={140} label="TLV Codec" a={a} w={62}/>
+    <NL x1={20} y1={158} x2={580} y2={158} a={a} w={0.4} op={0.2}/>
+    <TX x={20} y={172} fill={a} size={6.5} op={0.3}>Python (kernel socket API) · Robot Framework · struct-level SCTP ancillary data · GitHub Actions</TX>
+  </>
+}
+
+// ── GTP-U Tunnel Toolkit ───────────────────────────────────────────────
+function GtpuDesign({ a }) {
+  const fields = [
+    { lbl: 'FLAGS', w: 30 }, { lbl: 'TYPE', w: 30 }, { lbl: 'LENGTH', w: 44 }, { lbl: 'TEID', w: 64 },
+  ]
+  return <>
+    <TX x={20} y={11} fill={a} size={7.5} weight="700" spacing="1.5" op={0.45}>gtp-tunnel-toolkit · TS 29.281</TX>
+    <rect x={20} y={18} width={82} height={20} rx="3" fill={`${a}18`} stroke={a} strokeWidth="0.9"/>
+    <text x={61} y={32} fill={a} fontSize="12" fontWeight="700" textAnchor="middle" fontFamily="'Courier New',monospace" fillOpacity="0.9">7/7 PASS</text>
+    <Badge x={112} y={19} label="UDP 2152" a={a} w={62}/>
+    <Badge x={182} y={19} label="Robot Framework" a={a} w={100}/>
+    {/* GTP-U header byte diagram */}
+    <TX x={20} y={54} fill={a} size={6.5} weight="700" op={0.5} spacing="1">G-PDU HEADER (8-BYTE MANDATORY)</TX>
+    {(() => {
+      let x = 20
+      return fields.map(f => {
+        const rect = <g key={f.lbl}>
+          <rect x={x} y={60} width={f.w} height={20} fill={`${a}14`} stroke={a} strokeWidth="0.8" strokeOpacity="0.7"/>
+          <TX x={x + f.w / 2} y={73} fill={a} anchor="middle" size={6} weight="700" op={0.85}>{f.lbl}</TX>
+        </g>
+        x += f.w
+        return rect
+      })
+    })()}
+    {/* eNB -> Core tunnel */}
+    <TX x={20} y={104} fill={a} size={6.5} weight="700" op={0.5} spacing="1">ENCAPSULATED TUNNEL PATH</TX>
+    <NR x={20} y={112} width={70} height={34} a={a} w={1.1} op={0.85} rx={4}/>
+    <TX x={55} y={126} fill={a} anchor="middle" size={7} weight="700" op={0.85}>eNB</TX>
+    <TX x={55} y={138} fill={a} anchor="middle" size={5.5} op={0.45}>encaps</TX>
+    <NR x={500} y={112} width={70} height={34} a={a} w={1.1} op={0.85} rx={4}/>
+    <TX x={535} y={126} fill={a} anchor="middle" size={7} weight="700" op={0.85}>UPF</TX>
+    <TX x={535} y={138} fill={a} anchor="middle" size={5.5} op={0.45}>decaps</TX>
+    <line x1={90} y1={129} x2={500} y2={129} stroke={a} strokeWidth="1.1" strokeOpacity="0.5" strokeDasharray="5 4"/>
+    <circle r="3.5" fill={a} fillOpacity="0.85">
+      <animateMotion dur="2.4s" repeatCount="indefinite" path="M90,129 L500,129"/>
+    </circle>
+    <TX x={295} y={121} fill={a} anchor="middle" size={6} weight="700" op={0.7}>TEID 0x1234 · SEQ</TX>
+    <Badge x={200} y={140} label="TEID mismatch → rejected" a={a} w={150}/>
+    <TX x={20} y={172} fill={a} size={6.5} op={0.3}>Python · struct-level TS 29.281 codec · UDP tunnel endpoints · Robot Framework · GitHub Actions</TX>
+  </>
+}
+
 // ── master component ──────────────────────────────────────────────────
 const DESIGNS = {
   soc:         SOCDesign,
@@ -638,6 +721,8 @@ const DESIGNS = {
   'iam-risk':  IAMRiskDesign,
   jml:         JMLDesign,
   netprobe:    NetProbeDesign,
+  sctp:        SctpDesign,
+  gtpu:        GtpuDesign,
 }
 
 export default memo(function ProjectThumbnail({ type = 'soc', accent = '#3b5fd8', height = 180 }) {
